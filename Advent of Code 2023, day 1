@@ -1,0 +1,14 @@
+s = input().split()
+total_number = 0
+for i in s:
+    number = ''
+    for j in range(len(i)):
+        if i[j].isdigit():
+            number += i[j]
+            break
+    for k in range(len(i) - 1, -1, -1):
+        if i[k].isdigit():
+            number += i[k]
+            break
+    total_number += int(number)
+print(total_number)
