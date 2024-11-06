@@ -1,5 +1,3 @@
-import re
-amount_of_cubes = re.compile(r'\d{1,2}')
 s = input().split('Game ')[1:]
 red, green, blue = 12, 13, 14
 total_ids = 0
