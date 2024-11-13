@@ -1,0 +1,35 @@
+s = '''467..114..
+...*......
+..35..633.
+......#...
+617*......
+.....+.58.
+..592.....
+......755.
+...$.*....
+.664.598..'''.split()
+
+d = [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)]
+total = 0
+
+def check_neighbors(i_i, j_j):
+   for k in range(8):
+        ni, nj = i_i + d[k][0], j_j + d[k][1]
+        if 0 <= ni < len(s) and 0 <= nj < len(s[0]) and s[ni][nj] in '?*+$#':
+            return True
+    return False
+
+for i in range(len(s)):
+    for j in range(len(s[0])):
+        number = ''
+        number_indexes = []
+        flag = False
+        if s[i][j].isdigit():
+            number += s[i][j]
+            number_indexes.append([i, j])
+            for indexes in number_indexes:
+                if check_neighbors(indexes[0], indexes[1]):
+                    flag = True
+                    print(s[i][j], 'есть сосед')
+            if flag:
+                total += number
