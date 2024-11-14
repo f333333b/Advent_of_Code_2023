@@ -1,3 +1,4 @@
+# вводные данные
 text = '''467..114..
 ...*......
 ..35..633.
@@ -9,31 +10,35 @@ text = '''467..114..
 ...$.*....
 .664.598..'''.split()
 
-grid = [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)]
-total = 0
+# переменные
+directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)] # направления для поиска соседних символов
+total = 0 # сумма найденных чисел
 
-def check_neighbors(row, col, s):
-    for k in range(8):
-        k_row, k_col = i + grid[k][0], col + grid[k][1]
-        if 0 <= k_row < len(text) and 0 <= k_col < len(text[0]) and not (text[k_row][k_col].isdigit() or text[k_row][k_col] == '.'):
+# функция проверки на соседей
+def check_neighbors(row, col):
+    for dr_row, dr_col in directions:
+      k_row, k_col = row + dr_row, col + dr_col
+      if 0 <= k_row < len(text) and 0 <= k_col < len(text[0]) and not (text[k_row][k_col].isdigit() or text[k_row][k_col] == '.'):
             return True
     return False
 
-def process_number(row, col, text):
+# функция обработки числа
+def process_number(row, col):
     number = ''
     flag_neighbor = False
     while col < len(text[row]) and text[row][col].isdigit():
         number += text[row][col]
-        if check_neighbors(row, col, text):
+        if check_neighbors(row, col):
             flag_neighbor = True
         col += 1
-    return flag_neighbor, int(number), col #для перехода к символу, следующему за последней цифрой
+    return flag_neighbor, int(number), col # возвращаем col для перехода к символу, следующему за последней цифрой
 
+# основной блок
 for row in range(len(text)):
     col = 0
     while col < len(text[row]):
         if text[row][col].isdigit():
-            flag_neighbor, number, col = process_number(row, col, text)
+            flag_neighbor, number, col = process_number(row, col)
             if flag_neighbor:
                 total += number
         else:
