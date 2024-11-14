@@ -12,24 +12,32 @@ s = '''467..114..
 d = [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)]
 total = 0
 
-def check_neighbors(i_i, j_j):
-   for k in range(8):
-        ni, nj = i_i + d[k][0], j_j + d[k][1]
-        if 0 <= ni < len(s) and 0 <= nj < len(s[0]) and s[ni][nj] in '?*+$#':
+def check_neighbors(i, j, s):
+    for k in range(8):
+        ni, nj = i + d[k][0], j + d[k][1]
+        if 0 <= ni < len(s) and 0 <= nj < len(s[0]) and not (s[ni][nj].isdigit() or s[ni][nj] == '.'):
             return True
     return False
 
+def process_number(i, j, s):
+    number = ''
+    flag_neighbor = False
+    while j < len(s[i]) and s[i][j].isdigit():
+        number += s[i][j]
+        if check_neighbors(i, j, s):
+            flag_neighbor = True
+            j += 1
+        else:
+            break
+    return flag_neighbor, int(number), j #для перехода к символу, следующему за последней цифрой
+
 for i in range(len(s)):
-    for j in range(len(s[0])):
-        number = ''
-        number_indexes = []
-        flag = False
+    j = 0
+    while j < len(s[i]):
         if s[i][j].isdigit():
-            number += s[i][j]
-            number_indexes.append([i, j])
-            for indexes in number_indexes:
-                if check_neighbors(indexes[0], indexes[1]):
-                    flag = True
-                    print(s[i][j], 'есть сосед')
-            if flag:
+            flag_neighbor, number, j = process_number(i, j, s)
+            if flag_neighbor:
                 total += number
+        else:
+            j += 1
+print(total)
