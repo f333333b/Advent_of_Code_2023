@@ -1,0 +1,25 @@
+s = input().split('Game ')[1:]
+red, green, blue = 12, 13, 14
+total_ids = 0
+s1 = ''
+s2 = ''
+for i in range(len(s)):
+    flag = True
+    s1 = s[i][s[i].find(':') + 1::].split(';')
+    for j in range(len(s1)):
+        s2 = s1[j].split(',')
+        for k in range(len(s2)):
+            if 'red' in s2[k]:
+                if amount_of_cubes.search(s2[k]) != None and int(amount_of_cubes.search(s2[k]).group()) > red:
+                    flag = False
+            if 'green' in s2[k]:
+                if amount_of_cubes.search(s2[k]) != None and int(amount_of_cubes.search(s2[k]).group()) > green:
+                    flag = False
+            if 'blue' in s2[k]:
+                if amount_of_cubes.search(s2[k]) != None and int(amount_of_cubes.search(s2[k]).group()) > blue:
+                    flag = False
+    if flag:
+        total_ids += i + 1
+    else:
+        break
+print(total_ids)
