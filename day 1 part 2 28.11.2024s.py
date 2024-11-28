@@ -14,18 +14,6 @@ def find_digits(string):
     last_digit = all_digits[max(all_digits)]
     return int(str(first_digit) + str(last_digit))
 
-"""text = '''two1nine 
-eightwothree 
-abcone2threexyz 
-xtwone3four 
-4nineeightseven2 
-zoneight234 
-7pqrstsixteen'''"""
-
-"""total = 0
-for string in text.split():
-    find_digits(string.strip())"""
-
 with open(r'C:\pt\github\Advent_of_Code_2023\day 1 input.txt') as file:
     total = 0
     text = file.readlines()
